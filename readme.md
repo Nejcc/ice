@@ -1,3 +1,10 @@
+run: 
+```
+python -m src.cli run examples/hello_world.ice
+```
+
+Tree
+
 ```
 ice-language/
 ├── src/
