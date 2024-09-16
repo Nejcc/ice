@@ -1,3 +1,4 @@
+```
 ice-language/
 ├── src/
 │   ├── __init__.py            # Makes 'src' a Python package
@@ -28,3 +29,4 @@ ice-language/
 │   ├── language_spec.md       # Language specifications
 │   └── user_guide.md          # User guide for ICE language
 └── README.md                  # Readme file
+```
