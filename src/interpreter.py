@@ -3,6 +3,9 @@
 from src.lexer import tokenize
 from src.parser import parse
 
+# Store variables in a dictionary
+variables = {}
+
 def run_ice(file_path):
     """
     Function to interpret and run an ICE source file.
@@ -29,4 +32,14 @@ def interpret(ast):
     """
     for node in ast.children:
         if node.node_type == 'Print':
-            print(node.value)  # Execute print statement
+            print(node.value)  # Execute print statement for strings
+        elif node.node_type == 'PrintVar':
+            # Check if variable exists and print its value
+            if node.value in variables:
+                print(variables[node.value])
+            else:
+                print(f"Error: Variable '{node.value}' not defined.")
+        elif node.node_type == 'Assign':
+            # Store the variable in the dictionary
+            variables[node.value] = node.children[0].value
+            print(f"{node.value} = {node.children[0].value}")  # For debugging

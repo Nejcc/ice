@@ -13,6 +13,7 @@ def tokenize(source_code):
         ('NUMBER',   r'\d+(\.\d*)?'),   # Integer or decimal number
         ('STRING',   r'"[^"]*"'),       # String literals
         ('ID',       r'[A-Za-z_]\w*'),  # Identifiers
+        ('ASSIGN',   r'='),             # Assignment operator
         ('OP',       r'[+\-*/]'),       # Arithmetic operators
         ('LPAREN',   r'\('),            # Left parenthesis
         ('RPAREN',   r'\)'),            # Right parenthesis
@@ -34,6 +35,8 @@ def tokenize(source_code):
         elif kind == 'STRING':
             value = value.strip('"')
         elif kind == 'ID':
+            pass
+        elif kind == 'ASSIGN':
             pass
         elif kind == 'OP':
             pass
