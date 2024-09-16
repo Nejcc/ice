@@ -1,32 +1,25 @@
-# src/lexer.py
-
 import re
 
 def tokenize(source_code):
-    """
-    Tokenize the input source code into a list of tokens.
-    """
     tokens = []
     
-    # Define a basic set of token rules
     token_specification = [
-        ('NUMBER',   r'\d+(\.\d*)?'),   # Integer or decimal number
-        ('STRING',   r'"[^"]*"'),       # String literals
-        ('ID',       r'[A-Za-z_]\w*'),  # Identifiers
-        ('ASSIGN',   r'='),             # Assignment operator
-        ('OP',       r'[+\-*/]'),       # Arithmetic operators
-        ('LPAREN',   r'\('),            # Left parenthesis
-        ('RPAREN',   r'\)'),            # Right parenthesis
-        ('NEWLINE',  r'\n'),            # Line endings
-        ('SKIP',     r'[ \t]+'),        # Skip spaces and tabs
-        ('COMMENT',  r'#.*'),           # Comments
-        ('MISMATCH', r'.'),             # Any other character
+        ('NUMBER',   r'\d+(\.\d*)?'),
+        ('STRING',   r'"[^"]*"'),
+        ('ID',       r'[A-Za-z_]\w*'),
+        ('ASSIGN',   r'='),
+        ('OP',       r'[+\-*/]'),
+        ('COMPARE',  r'[<>!=]=?|=='),
+        ('LPAREN',   r'\('),
+        ('RPAREN',   r'\)'),
+        ('NEWLINE',  r'\n'),
+        ('SKIP',     r'[ \t]+'),
+        ('COMMENT',  r'#.*'),
+        ('MISMATCH', r'.'),
     ]
     
-    # Create a regular expression from token specifications
     token_regex = '|'.join(f'(?P<{name}>{pattern})' for name, pattern in token_specification)
     
-    # Scan through the source code
     for match in re.finditer(token_regex, source_code):
         kind = match.lastgroup
         value = match.group(kind)
@@ -47,7 +40,6 @@ def tokenize(source_code):
         elif kind == 'SKIP':
             continue
         elif kind == 'COMMENT':
-            # Ignore comments
             continue
         elif kind == 'MISMATCH':
             raise RuntimeError(f'Unexpected character: {value}')
